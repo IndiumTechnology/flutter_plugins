@@ -592,6 +592,11 @@ class WebViewController {
     return reload();
   }
 
+  /// Clears navigation history of the webview.
+  Future<void> clearHistory() async {
+    return _webViewPlatformController.clearHistory();
+  }
+
   Future<void> _updateWidget(WebView widget) async {
     _widget = widget;
     await _updateSettings(_webSettingsFromWidget(widget));
