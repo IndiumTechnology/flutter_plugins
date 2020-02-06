@@ -128,6 +128,12 @@ abstract class WebViewPlatformController {
         "WebView clearCache is not implemented on the current platform");
   }
 
+  /// Clears webview history [WebView].
+  Future<void> clearHistory() {
+    throw UnimplementedError(
+        "WebView clearHistory is not implemented on the current platform");
+  }
+
   /// Evaluates a JavaScript expression in the context of the current page.
   ///
   /// The Future completes with an error if a JavaScript error occurred, or if the type of the
