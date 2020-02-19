@@ -286,6 +286,19 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
         case "userAgent":
           updateUserAgent((String) settings.get(key));
           break;
+        case "cameraPermissionGranted":
+          final boolean cameraPermissionGranted = (boolean) settings.get(key);
+          if (cameraPermissionGranted) {
+            webView.setWebChromeClient(new WebChromeClient() {
+              @Override
+              public void onPermissionRequest(final PermissionRequest request) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                  request.grant(request.getResources());
+                }
+              }
+            });
+          }
+          break;
         default:
           throw new IllegalArgumentException("Unknown WebView setting: " + key);
       }
