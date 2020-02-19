@@ -148,6 +148,7 @@ class WebView extends StatefulWidget {
     this.onPageStarted,
     this.onPageFinished,
     this.debuggingEnabled = false,
+    this.cameraPermissionGranted = false,
     this.gestureNavigationEnabled = false,
     this.userAgent,
     this.initialMediaPlaybackPolicy =
@@ -290,6 +291,13 @@ class WebView extends StatefulWidget {
   /// By default `debuggingEnabled` is false.
   final bool debuggingEnabled;
 
+  /// Controls whether to automatically grant permission for camera.
+  ///
+  /// Supported only on Android. iOS doesn't support camera in webview.
+  ///
+  /// By default `cameraPermissionGranted` is false.
+  final bool cameraPermissionGranted;
+
   /// The value used for the HTTP User-Agent: request header.
   /// A Boolean value indicating whether horizontal swipe gestures will trigger back-forward list navigations.
   ///
@@ -391,6 +399,7 @@ WebSettings _webSettingsFromWidget(WebView widget) {
     javascriptMode: widget.javascriptMode,
     hasNavigationDelegate: widget.navigationDelegate != null,
     debuggingEnabled: widget.debuggingEnabled,
+    cameraPermissionGranted: widget.cameraPermissionGranted,
     gestureNavigationEnabled: widget.gestureNavigationEnabled,
     userAgent: WebSetting<String>.of(widget.userAgent),
   );
@@ -402,15 +411,18 @@ WebSettings _clearUnchangedWebSettings(
   assert(currentValue.javascriptMode != null);
   assert(currentValue.hasNavigationDelegate != null);
   assert(currentValue.debuggingEnabled != null);
+  assert(currentValue.cameraPermissionGranted != null);
   assert(currentValue.userAgent.isPresent);
   assert(newValue.javascriptMode != null);
   assert(newValue.hasNavigationDelegate != null);
   assert(newValue.debuggingEnabled != null);
+  assert(newValue.cameraPermissionGranted != null);
   assert(newValue.userAgent.isPresent);
 
   JavascriptMode javascriptMode;
   bool hasNavigationDelegate;
   bool debuggingEnabled;
+  bool cameraPermissionGranted;
   WebSetting<String> userAgent = WebSetting<String>.absent();
   if (currentValue.javascriptMode != newValue.javascriptMode) {
     javascriptMode = newValue.javascriptMode;
@@ -421,6 +433,9 @@ WebSettings _clearUnchangedWebSettings(
   if (currentValue.debuggingEnabled != newValue.debuggingEnabled) {
     debuggingEnabled = newValue.debuggingEnabled;
   }
+  if (currentValue.cameraPermissionGranted != newValue.cameraPermissionGranted) {
+    cameraPermissionGranted = newValue.cameraPermissionGranted;
+  }
   if (currentValue.userAgent != newValue.userAgent) {
     userAgent = newValue.userAgent;
   }
@@ -429,6 +444,7 @@ WebSettings _clearUnchangedWebSettings(
     javascriptMode: javascriptMode,
     hasNavigationDelegate: hasNavigationDelegate,
     debuggingEnabled: debuggingEnabled,
+    cameraPermissionGranted: cameraPermissionGranted,
     userAgent: userAgent,
   );
 }
