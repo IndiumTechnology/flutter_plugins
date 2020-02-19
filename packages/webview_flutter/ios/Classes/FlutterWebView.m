@@ -294,6 +294,8 @@
     } else if ([key isEqualToString:@"userAgent"]) {
       NSString* userAgent = settings[key];
       [self updateUserAgent:[userAgent isEqual:[NSNull null]] ? nil : userAgent];
+    } else if ([key isEqualToString:@"cameraPermissionGranted"]) {
+      // Camera in webview isn't working on iOS.
     } else {
       [unknownKeys addObject:key];
     }
