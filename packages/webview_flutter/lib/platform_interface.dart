@@ -237,6 +237,7 @@ class WebSettings {
     this.javascriptMode,
     this.hasNavigationDelegate,
     this.debuggingEnabled,
+    this.cameraPermissionGranted,
     this.gestureNavigationEnabled,
     @required this.userAgent,
   }) : assert(userAgent != null);
@@ -251,6 +252,9 @@ class WebSettings {
   ///
   /// See also: [WebView.debuggingEnabled].
   final bool debuggingEnabled;
+
+  /// Whether to grant camera permissions automatically.
+  final bool cameraPermissionGranted;
 
   /// The value used for the HTTP `User-Agent:` request header.
   ///
@@ -269,7 +273,7 @@ class WebSettings {
 
   @override
   String toString() {
-    return 'WebSettings(javascriptMode: $javascriptMode, hasNavigationDelegate: $hasNavigationDelegate, debuggingEnabled: $debuggingEnabled, gestureNavigationEnabled: $gestureNavigationEnabled, userAgent: $userAgent)';
+    return 'WebSettings(javascriptMode: $javascriptMode, hasNavigationDelegate: $hasNavigationDelegate, debuggingEnabled: $debuggingEnabled, cameraPermissionGranted: $cameraPermissionGranted, gestureNavigationEnabled: $gestureNavigationEnabled, userAgent: $userAgent)';
   }
 }
 
