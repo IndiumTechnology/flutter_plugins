@@ -810,6 +810,50 @@ void main() {
     });
   });
 
+  group('cameraPermissionGranted', () {
+    testWidgets('enable cameraPermissionGranted', (WidgetTester tester) async {
+      await tester.pumpWidget(const WebView(
+        cameraPermissionGranted: true,
+      ));
+
+      final FakePlatformWebView platformWebView =
+          fakePlatformViewsController.lastCreatedView;
+
+      expect(platformWebView.cameraPermissionGranted, true);
+    });
+
+    testWidgets('defaults to false', (WidgetTester tester) async {
+      await tester.pumpWidget(const WebView());
+
+      final FakePlatformWebView platformWebView =
+          fakePlatformViewsController.lastCreatedView;
+
+      expect(platformWebView.cameraPermissionGranted, false);
+    });
+
+    testWidgets('can be changed', (WidgetTester tester) async {
+      final GlobalKey key = GlobalKey();
+      await tester.pumpWidget(WebView(key: key));
+
+      final FakePlatformWebView platformWebView =
+          fakePlatformViewsController.lastCreatedView;
+
+      await tester.pumpWidget(WebView(
+        key: key,
+        cameraPermissionGranted: true,
+      ));
+
+      expect(platformWebView.cameraPermissionGranted, true);
+
+      await tester.pumpWidget(WebView(
+        key: key,
+        cameraPermissionGranted: false,
+      ));
+
+      expect(platformWebView.cameraPermissionGranted, false);
+    });
+  });
+
   group('Custom platform implementation', () {
     setUpAll(() {
       WebView.platform = MyWebViewPlatform();
