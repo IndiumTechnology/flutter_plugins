@@ -13,6 +13,7 @@ import android.view.View;
 import android.webkit.WebStorage;
 import android.webkit.WebViewClient;
 import android.webkit.WebChromeClient;
+import android.webkit.PermissionRequest;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
